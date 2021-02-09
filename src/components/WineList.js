@@ -11,7 +11,7 @@ const WineList = ({ wines }) => {
       {' '}
       <ul>
         {wines.map((wine) => (
-          <WineItem wine={wine} />
+          <WineItem wine={wine} key={wine.lotCode} />
         ))}
       </ul>
     </div>
