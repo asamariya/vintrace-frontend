@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import WineList from './WineList';
 
 const Search = () => {
-  const [query, setQuery] = useState(undefined);
+  const [query, setQuery] = useState('');
   const [wines, setWines] = useState([]);
 
   const getWines = async (query) => {
@@ -16,12 +16,15 @@ const Search = () => {
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
-    if (query && query.length > 0) {
+  };
+
+  useEffect(() => {
+    if (query.length > 0) {
       getWines(query);
-    } else if (!query) {
+    } else {
       setWines([]);
     }
-  };
+  }, [query]);
 
   return (
     <>
