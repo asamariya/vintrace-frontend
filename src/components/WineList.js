@@ -7,7 +7,7 @@ const WineList = ({ wines }) => {
   }
 
   return (
-    <div>
+    <div className="search-list">
       {' '}
       <ul>
         {wines.map((wine) => (

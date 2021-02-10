@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { v4 } from 'uuid';
+import BreakdownTable from './BreakdownTable';
+import TypeTabs from './TypeTabs';
+import WineInfo from './WineInfo';
 
 const WinePage = () => {
   const [wine, setWine] = useState([]);
@@ -70,62 +73,14 @@ const WinePage = () => {
 
   return (
     <>
+      <WineInfo wine={wine} />
       <div>
-        <h2>{wine.lotCode}</h2>
-        <h5>{wine.description}</h5>{' '}
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h6>Volume</h6>
-            <p>{wine.volume}</p>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h6>Tank Code</h6>
-            <p>{wine.tankCode}</p>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h6>Product State</h6>
-            <p>{wine.productState}</p>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <h6>Owner</h6>
-            <p>{wine.ownerName}</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div className="tab" style={{ width: '100%' }}>
-          <button className="tablinks" onClick={() => fetchBreakdown('year')}>
-            Year
-          </button>
-          <button
-            className="tablinks"
-            onClick={() => fetchBreakdown('variety')}
-          >
-            Variety
-          </button>
-          <button className="tablinks" onClick={() => fetchBreakdown('region')}>
-            Region
-          </button>
-          <button
-            className="tablinks"
-            onClick={() => fetchBreakdown('year-variety')}
-          >
-            Year &amp; Variety
-          </button>
-        </div>
-        <div>
-          {showTable && (
-            <table style={{ width: '100%' }}>
-              <thead>
-                <tr>
-                  <th>{breakdown.breakDownType}</th>
-                  <th>Percentage</th>
-                </tr>
-              </thead>
-              <tbody>{items}</tbody>
-            </table>
-          )}
-        </div>
+        <TypeTabs fetchBreakdown={fetchBreakdown} />
+        <BreakdownTable
+          showTable={showTable}
+          items={items}
+          breakdown={breakdown}
+        />
         {showMore && <button onClick={handleShowMore}>Show More</button>}
       </div>
     </>

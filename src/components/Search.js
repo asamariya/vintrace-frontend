@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import WineList from './WineList';
+import wineGlassImg from '../icons/wineGlass.png';
+import searchIcon from '../icons/Search.svg';
+
+import '../styles/search.scss';
 
 const Search = () => {
   const [query, setQuery] = useState('');
@@ -26,17 +30,34 @@ const Search = () => {
     }
   }, [query]);
 
+  const clearSearch = () => setQuery('');
+
   return (
     <>
-      <div>
-        <h2>Wine Search</h2>
-        <form>
-          <input
-            placeholder="Search by lot code and description..."
-            onChange={handleInputChange}
-          />
-        </form>
-        {wines.length > 0 && <WineList wines={wines} />}
+      <div className="search">
+        <div className="heading">
+          <h2>Wine Search</h2>
+          <img src={wineGlassImg} alt="Wine glass icon" />
+        </div>
+        <div className="search-info">
+          <form className="search-form">
+            <img src={searchIcon} alt="Search Icon" />
+            <input
+              type="text"
+              placeholder="Search by lot code and description..."
+              onChange={handleInputChange}
+              value={query}
+            />
+            {query !== '' && (
+              <button
+                className="closeBtn"
+                type="reset"
+                onClick={clearSearch}
+              ></button>
+            )}
+          </form>
+          {wines.length > 0 && <WineList wines={wines} />}
+        </div>
       </div>
     </>
   );

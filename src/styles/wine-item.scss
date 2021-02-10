@@ -1,0 +1,17 @@
+.search-list {
+  width: 100%;
+  .search-list-item {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: thin solid #cccccc;
+    border-top: none;
+    // width: 678px;
+    // height: 56px;
+    p {
+      font-size: 13px;
+      color: #3a3b3b;
+    }
+  }
+}
