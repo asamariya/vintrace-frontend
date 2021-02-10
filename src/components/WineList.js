@@ -1,7 +1,7 @@
 import React from 'react';
 import WineItem from './WineItem';
 
-const WineList = ({ wines }) => {
+const WineList = ({ query, wines }) => {
   if (wines.length === 0) {
     return <h2>No wines found.</h2>;
   }
@@ -11,7 +11,7 @@ const WineList = ({ wines }) => {
       {' '}
       <ul>
         {wines.map((wine) => (
-          <WineItem wine={wine} key={wine.lotCode} />
+          <WineItem query={query} wine={wine} key={wine.lotCode} />
         ))}
       </ul>
     </div>

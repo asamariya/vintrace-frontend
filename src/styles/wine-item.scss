@@ -1,5 +1,7 @@
 .search-list {
   width: 100%;
+  ul > a:hover {
+  }
   .search-list-item {
     background-color: #ffffff;
     display: flex;
@@ -7,6 +9,9 @@
     padding: 10px;
     border: thin solid #cccccc;
     border-top: none;
+    &:hover {
+      background-color: #e5e5e5;
+    }
     // width: 678px;
     // height: 56px;
     p {

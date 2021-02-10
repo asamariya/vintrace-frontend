@@ -56,7 +56,7 @@ const Search = () => {
               ></button>
             )}
           </form>
-          {wines.length > 0 && <WineList wines={wines} />}
+          {wines.length > 0 && <WineList query={query} wines={wines} />}
         </div>
       </div>
     </>

@@ -72,8 +72,9 @@ const WinePage = () => {
     ));
 
   return (
-    <>
-      <WineInfo wine={wine} />
+    <div className="wine-page">
+      {wine && <WineInfo wine={wine} />}
+
       <div>
         <TypeTabs fetchBreakdown={fetchBreakdown} />
         <BreakdownTable
@@ -83,7 +84,7 @@ const WinePage = () => {
         />
         {showMore && <button onClick={handleShowMore}>Show More</button>}
       </div>
-    </>
+    </div>
   );
 };
 
