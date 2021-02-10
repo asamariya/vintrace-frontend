@@ -1,49 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { v4 } from 'uuid';
 
 const WinePage = () => {
   const [wine, setWine] = useState([]);
   const [breakdown, setBreakdown] = useState([]);
   const [type, setType] = useState('year');
   const [showTable, setShowTable] = useState(false);
+  const [showItems, setShowItems] = useState(5);
+  const [showMore, setShowMore] = useState(false);
   const { lotCode } = useParams();
 
-  const fetchWine = async () => {
-    const api = 'http://localhost:5000/api/breakdown/search/';
-    console.log('fetchWine');
-    try {
-      let response = await axios.get(`${api}/${lotCode}`);
-      setWine(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const onClickHandler = (value) => {
-    setType(value);
-    fetchBreakdown(type);
-  };
-
   const fetchBreakdown = async (key) => {
+    setShowMore(false);
+    setType(key);
     const url = `http://localhost:5000/api/breakdown/${key}/${lotCode}`;
     console.log(url);
     try {
       let response = await axios.get(url);
       await setBreakdown(response.data);
+      breakdown.breakdown && breakdown.breakdown.length > 5
+        ? setShowMore(true)
+        : setShowMore(false);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
+    const fetchWine = async () => {
+      const api = 'http://localhost:5000/api/breakdown/search/';
+      console.log('fetchWine');
+      try {
+        let response = await axios.get(`${api}/${lotCode}`);
+        setWine(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     fetchWine();
     setShowTable(true);
+    fetchBreakdown(type);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    fetchBreakdown(type);
-  }, [type]);
+  const handleShowMore = () => {
+    setShowItems(
+      showItems >= breakdown.breakdown && breakdown.breakdown.length
+        ? showItems
+        : showItems + 5
+    );
+    setShowMore((prevShowMore) => !prevShowMore);
+  };
+
+  const items =
+    breakdown.breakdown &&
+    breakdown.breakdown.slice(0, showItems).map((item) => (
+      <tr key={v4()}>
+        <td>
+          {item.year ? item.year + ' - ' : null}
+          {item.key}
+        </td>
+        <td>{item.percentage}%</td>
+      </tr>
+    ));
 
   return (
     <>
@@ -71,21 +94,21 @@ const WinePage = () => {
       </div>
       <div>
         <div className="tab" style={{ width: '100%' }}>
-          <button className="tablinks" onClick={() => onClickHandler('year')}>
+          <button className="tablinks" onClick={() => fetchBreakdown('year')}>
             Year
           </button>
           <button
             className="tablinks"
-            onClick={() => onClickHandler('variety')}
+            onClick={() => fetchBreakdown('variety')}
           >
             Variety
           </button>
-          <button className="tablinks" onClick={() => onClickHandler('region')}>
+          <button className="tablinks" onClick={() => fetchBreakdown('region')}>
             Region
           </button>
           <button
             className="tablinks"
-            onClick={() => onClickHandler('year-variety')}
+            onClick={() => fetchBreakdown('year-variety')}
           >
             Year &amp; Variety
           </button>
@@ -99,19 +122,11 @@ const WinePage = () => {
                   <th>Percentage</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Jill</td>
-                  <td>Smith</td>
-                </tr>
-                <tr>
-                  <td>Eve</td>
-                  <td>Jackson</td>
-                </tr>
-              </tbody>
+              <tbody>{items}</tbody>
             </table>
           )}
         </div>
+        {showMore && <button onClick={handleShowMore}>Show More</button>}
       </div>
     </>
   );
