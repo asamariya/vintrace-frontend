@@ -1,5 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+
+import titleCase from '../utils/helper';
 import '../styles/wine-info.scss';
 import backArrow from '../icons/Back.svg';
 import editIcon from '../icons/Edit.svg';
@@ -7,17 +9,6 @@ import wIcon from '../icons/W.png';
 
 const WineInfo = ({ wine }) => {
   let history = useHistory();
-  const titleCase = (sentence) => {
-    const words = sentence.split(' ');
-
-    const capitalisedSentence = words
-      .map((word) => {
-        return word[0].toUpperCase() + word.substring(1);
-      })
-      .join(' ');
-
-    return capitalisedSentence;
-  };
 
   const goBack = () => {
     history.push('/');

@@ -1,19 +1,32 @@
 import React from 'react';
 
-const TypeTabs = ({ fetchBreakdown }) => {
+import '../styles/type-tabs.scss';
+
+const TypeTabs = ({ activeTab, fetchBreakdown }) => {
   return (
-    <div className="tab" style={{ width: '100%' }}>
-      <button className="tablinks" onClick={() => fetchBreakdown('year')}>
+    <div className="tabs" style={{ width: '100%' }}>
+      <button
+        className={activeTab === 'year' ? 'active tablinks' : 'tablinks'}
+        onClick={() => fetchBreakdown('year')}
+      >
         Year
       </button>
-      <button className="tablinks" onClick={() => fetchBreakdown('variety')}>
+      <button
+        className={activeTab === 'variety' ? 'active tablinks' : 'tablinks'}
+        onClick={() => fetchBreakdown('variety')}
+      >
         Variety
       </button>
-      <button className="tablinks" onClick={() => fetchBreakdown('region')}>
+      <button
+        className={activeTab === 'region' ? 'active tablinks' : 'tablinks'}
+        onClick={() => fetchBreakdown('region')}
+      >
         Region
       </button>
       <button
-        className="tablinks"
+        className={
+          activeTab === 'year-variety' ? 'active tablinks' : 'tablinks'
+        }
         onClick={() => fetchBreakdown('year-variety')}
       >
         Year &amp; Variety

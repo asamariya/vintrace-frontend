@@ -1,0 +1,28 @@
+.breakdown {
+  width: 100%;
+  background-color: #ffffff;
+  border: thin solid #cccccc;
+  .breakdown-table {
+    .table {
+      .t-head {
+        display: flex;
+        justify-content: space-between;
+        // width: 100%;
+        padding: 14px;
+        border-bottom: thin solid #cccccc;
+        font-weight: 400;
+      }
+      .t-body {
+        .breakdown-list {
+          .breakdown-list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px;
+            border-bottom: thin solid #cccccc;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+}

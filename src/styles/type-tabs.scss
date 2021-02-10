@@ -1,0 +1,14 @@
+.tabs {
+  box-shadow: 0px 1px 0px #e8e8e8;
+  .tablinks {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    border: none;
+    background: none;
+    padding: 9px 14px;
+    font-weight: 300;
+    &.active {
+      border-bottom: #01ada8 solid 2px;
+    }
+  }
+}

@@ -6,6 +6,8 @@ import BreakdownTable from './BreakdownTable';
 import TypeTabs from './TypeTabs';
 import WineInfo from './WineInfo';
 
+import '../styles/breakdown-table.scss';
+
 const WinePage = () => {
   const [wine, setWine] = useState([]);
   const [breakdown, setBreakdown] = useState([]);
@@ -13,12 +15,14 @@ const WinePage = () => {
   const [showTable, setShowTable] = useState(false);
   const [showItems, setShowItems] = useState(5);
   const [showMore, setShowMore] = useState(false);
+  const [activeTab, setActiveTab] = useState('year');
   const { lotCode } = useParams();
 
   const fetchBreakdown = async (key) => {
     setShowMore(false);
     setType(key);
     const url = `http://localhost:5000/api/breakdown/${key}/${lotCode}`;
+    setActiveTab(key);
     console.log(url);
     try {
       let response = await axios.get(url);
@@ -62,21 +66,23 @@ const WinePage = () => {
   const items =
     breakdown.breakdown &&
     breakdown.breakdown.slice(0, showItems).map((item) => (
-      <tr key={v4()}>
-        <td>
-          {item.year ? item.year + ' - ' : null}
-          {item.key}
-        </td>
-        <td>{item.percentage}%</td>
-      </tr>
+      <ul className="breakdown-list">
+        <li key={v4()} className="breakdown-list-item">
+          <div className="breakdown-list-type">
+            {item.year ? item.year + ' - ' : null}
+            {item.key}
+          </div>
+          <div className="breakdown-list-percent">{item.percentage}%</div>
+        </li>
+      </ul>
     ));
 
   return (
     <div className="wine-page">
       {wine && <WineInfo wine={wine} />}
 
-      <div>
-        <TypeTabs fetchBreakdown={fetchBreakdown} />
+      <div className="breakdown">
+        <TypeTabs activeTab={activeTab} fetchBreakdown={fetchBreakdown} />
         <BreakdownTable
           showTable={showTable}
           items={items}
