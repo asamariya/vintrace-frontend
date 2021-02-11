@@ -10,5 +10,8 @@
     &.active {
       border-bottom: #01ada8 solid 2px;
     }
+    &:hover {
+      background-color: #e8e8e8;
+    }
   }
 }

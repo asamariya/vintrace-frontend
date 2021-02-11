@@ -41,10 +41,13 @@ const WineInfo = ({ wine }) => {
           <h6>Tank Code</h6>
           <p>{wine.tankCode}</p>
         </div>
-        <div className="wine-info-row">
-          <h6>Product State</h6>
-          <p>{wine.productState}</p>
-        </div>
+        {wine && wine.productState && (
+          <div className="wine-info-row">
+            <h6>Product State</h6>
+            <p>{wine.productState}</p>
+          </div>
+        )}
+
         <div className="wine-info-row">
           <h6>Owner</h6>
           <p>{wine.ownerName}</p>

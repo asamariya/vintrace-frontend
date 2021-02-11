@@ -25,4 +25,16 @@
       }
     }
   }
+  .showMoreBtn {
+    text-align: center;
+    button {
+      background: none;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      padding: 14px;
+      font-weight: 400;
+      font-size: 11px;
+      color: #00928d;
+    }
+  }
 }

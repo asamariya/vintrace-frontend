@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -5,6 +6,7 @@ import { v4 } from 'uuid';
 import BreakdownTable from './BreakdownTable';
 import TypeTabs from './TypeTabs';
 import WineInfo from './WineInfo';
+import downArrowIcon from '../icons/DownArrow.svg';
 
 import '../styles/breakdown-table.scss';
 
@@ -32,18 +34,6 @@ const WinePage = () => {
       : setShowMore(false);
   }, [breakdown]);
 
-  const fetchBreakdown = async () => {
-    const url = `http://localhost:5000/api/breakdown/${type}/${lotCode}`;
-
-    console.log(url);
-    try {
-      let response = await axios.get(url);
-      await setBreakdown(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     const fetchWine = async () => {
       const api = 'http://localhost:5000/api/breakdown/search/';
@@ -61,6 +51,18 @@ const WinePage = () => {
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchBreakdown = async () => {
+    const url = `http://localhost:5000/api/breakdown/${type}/${lotCode}`;
+
+    console.log(url);
+    try {
+      let response = await axios.get(url);
+      await setBreakdown(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleShowMore = () => {
     setShowItems(
@@ -96,7 +98,13 @@ const WinePage = () => {
           breakdown={breakdown}
           showItens={showItems}
         />
-        {showMore ? <button onClick={handleShowMore}>Show More</button> : null}
+        {showMore ? (
+          <div className="showMoreBtn">
+            <button onClick={handleShowMore}>Show More</button>
+
+            <img src={downArrowIcon} alt="Down arrow icon" />
+          </div>
+        ) : null}
       </div>
     </div>
   );
