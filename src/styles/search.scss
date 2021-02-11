@@ -5,6 +5,7 @@
   margin: 10% auto 0 auto;
   justify-content: center;
   width: 624px;
+  padding: 0 8px;
   .heading {
     display: flex;
     width: 55%;
@@ -64,8 +65,14 @@
   }
 }
 
-@media only screen and (max-width: 678px) {
+@media only screen and (max-width: 576px) {
   .search {
-    width: 320px;
+    width: 420px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .search {
+    width: 520px;
   }
 }

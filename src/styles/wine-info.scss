@@ -1,6 +1,7 @@
 .wine-page {
   margin: 10% auto 0 auto;
   width: 768px;
+  padding: 0 8px;
   .wine-info {
     .wine-info-header {
       margin-bottom: 16px;
@@ -12,6 +13,7 @@
       .title {
         display: flex;
         justify-content: space-between;
+
         .title-left {
           display: flex;
           align-items: center;
@@ -52,4 +54,46 @@
 .wine-info-row {
   display: flex;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 576px) {
+  .wine-page {
+    width: 420px;
+    .wine-info {
+      .wine-info-header {
+        h5 {
+          font-size: 16px;
+        }
+        .title {
+          h2 {
+            font-size: 32px;
+          }
+          img {
+            width: 48px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .wine-page {
+    width: 520px;
+    .wine-info {
+      .wine-info-header {
+        h5 {
+          font-size: 18px;
+        }
+        .title {
+          h2 {
+            font-size: 38px;
+          }
+          img {
+            width: 52px;
+          }
+        }
+      }
+    }
+  }
 }
