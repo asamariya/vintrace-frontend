@@ -32,7 +32,7 @@ const WinePage = () => {
   useEffect(() => {
     const fetchWine = async () => {
       const api = 'http://localhost:5000/api/breakdown/search/';
-      console.log('fetchWine');
+
       try {
         let response = await axios.get(`${api}/${lotCode}`);
         setWine(response.data);
@@ -44,13 +44,11 @@ const WinePage = () => {
     fetchWine();
 
     return () => {};
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchBreakdown = async () => {
     const url = `http://localhost:5000/api/breakdown/${type}/${lotCode}`;
     setShowItems(5);
-    console.log(url);
     try {
       let response = await axios.get(url);
       await setBreakdown(response.data);

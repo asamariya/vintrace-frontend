@@ -15,7 +15,6 @@ const Search = () => {
       `http://localhost:5000/api/breakdown/search/wine?searchTerm=${query}`
     );
     setWines(response.data);
-    // console.log(wines);
   };
 
   const handleInputChange = (e) => {
