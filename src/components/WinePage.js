@@ -14,7 +14,6 @@ const WinePage = () => {
   const [wine, setWine] = useState([]);
   const [breakdown, setBreakdown] = useState([]);
   const [type, setType] = useState('year');
-
   const [showItems, setShowItems] = useState(5);
   const [showMore, setShowMore] = useState(false);
 
@@ -23,10 +22,6 @@ const WinePage = () => {
   useEffect(() => {
     fetchBreakdown();
   }, [type]);
-
-  useEffect(() => {
-    fetchBreakdown();
-  }, [wine]);
 
   useEffect(() => {
     breakdown.breakdown && breakdown.breakdown.length > 5
@@ -54,7 +49,7 @@ const WinePage = () => {
 
   const fetchBreakdown = async () => {
     const url = `http://localhost:5000/api/breakdown/${type}/${lotCode}`;
-
+    setShowItems(5);
     console.log(url);
     try {
       let response = await axios.get(url);
@@ -70,14 +65,14 @@ const WinePage = () => {
         ? showItems
         : showItems + 5
     );
-    // setShowMore((prevShowMore) => !prevShowMore);
+    setShowMore(false);
   };
 
   const items =
     breakdown.breakdown &&
     breakdown.breakdown.slice(0, showItems).map((item) => (
-      <ul className="breakdown-list">
-        <li key={v4()} className="breakdown-list-item">
+      <ul className="breakdown-list" key={v4()}>
+        <li className="breakdown-list-item">
           <div className="breakdown-list-type">
             {item.year ? item.year + ' - ' : null}
             {item.key}
