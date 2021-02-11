@@ -12,24 +12,33 @@ const WinePage = () => {
   const [wine, setWine] = useState([]);
   const [breakdown, setBreakdown] = useState([]);
   const [type, setType] = useState('year');
-  const [showTable, setShowTable] = useState(false);
+
   const [showItems, setShowItems] = useState(5);
   const [showMore, setShowMore] = useState(false);
-  const [activeTab, setActiveTab] = useState('year');
+
   const { lotCode } = useParams();
 
-  const fetchBreakdown = async (key) => {
-    setShowMore(false);
-    setType(key);
-    const url = `http://localhost:5000/api/breakdown/${key}/${lotCode}`;
-    setActiveTab(key);
+  useEffect(() => {
+    fetchBreakdown();
+  }, [type]);
+
+  useEffect(() => {
+    fetchBreakdown();
+  }, [wine]);
+
+  useEffect(() => {
+    breakdown.breakdown && breakdown.breakdown.length > 5
+      ? setShowMore(true)
+      : setShowMore(false);
+  }, [breakdown]);
+
+  const fetchBreakdown = async () => {
+    const url = `http://localhost:5000/api/breakdown/${type}/${lotCode}`;
+
     console.log(url);
     try {
       let response = await axios.get(url);
       await setBreakdown(response.data);
-      breakdown.breakdown && breakdown.breakdown.length > 5
-        ? setShowMore(true)
-        : setShowMore(false);
     } catch (err) {
       console.log(err);
     }
@@ -48,8 +57,7 @@ const WinePage = () => {
     };
 
     fetchWine();
-    setShowTable(true);
-    fetchBreakdown(type);
+
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -60,7 +68,7 @@ const WinePage = () => {
         ? showItems
         : showItems + 5
     );
-    setShowMore((prevShowMore) => !prevShowMore);
+    // setShowMore((prevShowMore) => !prevShowMore);
   };
 
   const items =
@@ -82,13 +90,13 @@ const WinePage = () => {
       {wine && <WineInfo wine={wine} />}
 
       <div className="breakdown">
-        <TypeTabs activeTab={activeTab} fetchBreakdown={fetchBreakdown} />
+        <TypeTabs type={type} setType={setType} />
         <BreakdownTable
-          showTable={showTable}
           items={items}
           breakdown={breakdown}
+          showItens={showItems}
         />
-        {showMore && <button onClick={handleShowMore}>Show More</button>}
+        {showMore ? <button onClick={handleShowMore}>Show More</button> : null}
       </div>
     </div>
   );

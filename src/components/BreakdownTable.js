@@ -3,7 +3,7 @@ import React from 'react';
 import titleCase from '../utils/helper';
 import '../styles/breakdown-table.scss';
 
-const BreakdownTable = ({ showTable, breakdown, items }) => {
+const BreakdownTable = ({ breakdown, items }) => {
   const replaceHyphen = (sentence) => {
     const breakdownType =
       sentence && sentence.replace('-', '&').split('&').join(' & ');
@@ -12,7 +12,7 @@ const BreakdownTable = ({ showTable, breakdown, items }) => {
 
   return (
     <div className="breakdown-table">
-      {showTable && (
+      {breakdown && (
         <div className="table">
           <div className="t-head">
             <div>
